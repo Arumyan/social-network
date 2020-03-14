@@ -1,0 +1,20 @@
+.UserListItem {
+  flex: 1 1 calc(50% - 20px);
+  display: flex;
+  align-items: center;
+  border: 1px solid blue;
+  box-sizing: border-box;
+  padding: 5px;
+  margin: 10px;
+
+  .UserListItemImg {
+    width: 100px;
+    height: 100px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
