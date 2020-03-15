@@ -1,16 +1,23 @@
 import React from 'react';
 import classes from './UserListItem.module.scss';
 
-const UserListItem = (props) => {
+import { NavLink } from 'react-router-dom';
+
+const UserListItem = props => {
+  const userId = props.userId;
+
   return (
-    <div className={classes.UserListItem}>
+    <NavLink to={`/profile/${userId}`} className={classes.UserListItem}>
       <div className={classes.UserListItemImg}>
-        <img src="https://specenergo.ru/sites/default/files/styles/mt_testimonial_image/public/2016-11/testimonial-4.jpg?itok=a7UblV6p" alt=""/>
+        <img
+          src='https://specenergo.ru/sites/default/files/styles/mt_testimonial_image/public/2016-11/testimonial-4.jpg?itok=a7UblV6p'
+          alt=''
+        />
       </div>
       <div>{props.name}</div>
       <button>Follow</button>
-    </div>
+    </NavLink>
   );
 };
 
-export default UserListItem
+export default UserListItem;

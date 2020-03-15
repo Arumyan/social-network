@@ -22,7 +22,7 @@ class UsersList extends Component {
     const users = (
       <div className={classes.Users}>
         {this.props.users.map(user => {
-          return <UserListItem name={user.name} key={user.id} />;
+          return <UserListItem name={user.name} userId={user.id} key={user.id} />;
         })}
       </div>
     );
