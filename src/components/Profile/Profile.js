@@ -1,16 +1,12 @@
 import React from 'react';
 import classes from './Profile.module.scss';
 
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const Profile = (props) => {
-  console.log(props)
-  return (
-    <div className={classes.Profile}>
-      {props.match.params.userId}
-    </div>
-  );
+const Profile = props => {
+  console.log(props);
+  return <div className={classes.Profile}>{props.match.params.userId}</div>;
 };
 
 const mapStateToProps = state => {
@@ -19,4 +15,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withRouter(Profile))
+export default connect(mapStateToProps)(withRouter(Profile));

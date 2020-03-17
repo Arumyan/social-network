@@ -9,14 +9,35 @@ import { Switch, Route } from 'react-router-dom';
 const App = () => {
   return (
     <div className='App'>
-      <Switch>
-        <Route path='/' exact>
-          <UsersList />
-        </Route>
-        <Route path='/profile/:userId'>
-          <Profile />
-        </Route>
-      </Switch>
+      <header className="Header">
+        <div className="Logo">SocialNetwork</div>
+        <div className="User">
+          <span className="UserName">UserName</span>
+          <div className="Avatar">
+            <img src="https://specenergo.ru/sites/default/files/styles/mt_testimonial_image/public/2016-11/testimonial-4.jpg?itok=a7UblV6p" alt="Avatar"/>
+          </div>
+        </div>
+      </header>
+      <div className="Content">
+        <nav className="Nav">
+          <ul>
+            <li>Users</li>
+            <li>Messages</li>
+            <li>Settings</li>
+          </ul>
+        </nav>
+        <main className="MainContent">
+        <Switch>
+          <Route path='/' exact>
+            <UsersList />
+          </Route>
+          <Route path='/profile/:userId'>
+            <Profile />
+          </Route>
+        </Switch>
+        </main>
+        
+      </div>
     </div>
   );
 };

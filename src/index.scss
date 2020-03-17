@@ -13,5 +13,10 @@ html, body {
 body {
   font-family: sans-serif;
   background-color: #fff;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
 }
 
