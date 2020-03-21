@@ -17,22 +17,22 @@ class App extends Component {
         withCredentials: true
       })
       .then(response => {
-
-        if(response.data.resultCode === 0) {
-          const {id, email, login} = response.data.data
-          this.props.setAuthUserData({id, email, login});
+        if (response.data.resultCode === 0) {
+          const { id, email, login } = response.data.data;
+          this.props.setAuthUserData({ id, email, login });
         }
       });
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className='App'>
         <header className='Header'>
           <div className='Logo'>SocialNetwork</div>
           <div className='User'>
-            <span className='UserName'>{this.props.isAuth ? this.props.login : 'Login'}</span>
+            <span className='UserName'>
+              {this.props.isAuth ? this.props.login : 'Login'}
+            </span>
             <div className='Avatar'>
               <img
                 src='https://specenergo.ru/sites/default/files/styles/mt_testimonial_image/public/2016-11/testimonial-4.jpg?itok=a7UblV6p'
@@ -77,9 +77,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setAuthUserData: (data) => dispatch(
-      { type: 'SET_AUTH_USER_DATA', data }
-    )
+    setAuthUserData: data => dispatch({ type: 'SET_AUTH_USER_DATA', data })
   };
 };
 
