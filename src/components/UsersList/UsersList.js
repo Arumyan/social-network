@@ -31,6 +31,7 @@ class UsersList extends Component {
             <UserListItem
               name={user.name}
               userId={user.id}
+              photo={user.photos.large}
               key={user.id}
               followed={user.followed}
               onFollow={this.props.follow}
