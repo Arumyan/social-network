@@ -1,6 +1,7 @@
 const initialState = {
   users: [],
-  isLoaded: false
+  isLoaded: false,
+  followingInProgress: []
 };
 
 export default function usersReducer(state = initialState, action) {
@@ -34,6 +35,14 @@ export default function usersReducer(state = initialState, action) {
 
     case 'TOGGLE_IS_LOADED':
       return { ...state, isLoaded: true };
+
+    case 'TOGGLE_IS_FOLLOWING_PROGRESS':
+      return {
+        ...state,
+        followingInProgress: action.isFetching
+          ? [...state.followingInProgress, action.userId]
+          : state.followingInProgress.filter(id => id !== action.userId)
+      };
 
     default:
       return state;

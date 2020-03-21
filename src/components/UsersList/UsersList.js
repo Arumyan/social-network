@@ -2,22 +2,18 @@ import React, { Component } from 'react';
 import classes from './UsersList.module.scss';
 
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { withRouter } from 'react-router';
 
 import UserListItem from './UserListItem/UserListItem';
+import { usersAPI } from '../../api/api';
 
 class UsersList extends Component {
   componentDidMount() {
     if (!this.props.users.length) {
-      axios
-        .get('https://social-network.samuraijs.com/api/1.0/users', {
-          withCredentials: true
-        })
-        .then(response => {
-          this.props.setUsers(response.data.items);
-          this.props.toggleIsLoaded();
-        });
+      usersAPI.getUsers().then(data => {
+        this.props.setUsers(data.items);
+        this.props.toggleIsLoaded();
+      });
     }
   }
 
@@ -40,6 +36,8 @@ class UsersList extends Component {
               onFollow={this.props.follow}
               onUnFollow={this.props.unfollow}
               onClickUserItem={this.hundlerClickUserItem}
+              toggleFollowingProgress={this.props.toggleFollowingProgress}
+              followingInProgress={this.props.followingInProgress}
             />
           );
         })}
@@ -53,7 +51,8 @@ class UsersList extends Component {
 const mapStateToProps = state => {
   return {
     users: state.usersReducer.users,
-    isLoaded: state.usersReducer.isLoaded
+    isLoaded: state.usersReducer.isLoaded,
+    followingInProgress: state.usersReducer.followingInProgress
   };
 };
 
@@ -73,6 +72,10 @@ const mapDispatchToProps = dispatch => {
 
     toggleIsLoaded: () => {
       dispatch({ type: 'TOGGLE_IS_LOADED' });
+    },
+
+    toggleFollowingProgress: (isFetching, userId) => {
+      dispatch({ type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId });
     }
   };
 };

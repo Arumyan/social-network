@@ -5,13 +5,19 @@
   border: 1px solid #fff;
   color: #fff;
   box-sizing: border-box;
-  padding: 5px;
+  padding: 10px;
   margin: 10px;
   cursor: pointer;
+  transition: background-color 0.1s;
+
+  &:hover {
+    background-color: #4479D4;
+  }
 
   .UserListItemImg {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+    margin: 0 10px 0 0;
 
     img {
       width: 100%;
@@ -20,7 +26,30 @@
     }
   }
 
+  .UserListItemName {
+    text-transform: capitalize;
+    font-size: 18px;
+  }
+
+  
   button {
+    background-color: #00A08A;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 3px;
+    border: 1px solid #fff;;
     margin-left: auto;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+
+    &:hover {
+      background-color: #1E786C;
+    }
+
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 }

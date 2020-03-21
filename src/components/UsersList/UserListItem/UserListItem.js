@@ -14,26 +14,28 @@ const UserListItem = props => {
           alt='img'
         />
       </div>
-      <div>{props.name}</div>
+      <div className={classes.UserListItemName}>{props.name}</div>
 
       {props.followed ? (
         <button
+          disabled={props.followingInProgress.some( id => id === props.userId)}
           onClick={e => {
             e.stopPropagation();
-
+            props.toggleFollowingProgress(true, props.userId);
             axios
               .delete(
                 `https://social-network.samuraijs.com/api/1.0/follow/${props.userId}`,
 
                 {
                   withCredentials: true,
-                  headers: {"API-KEY": "1d50145e-9b5b-43e8-933a-f2213da6e70b"}
+                  headers: { 'API-KEY': '1d50145e-9b5b-43e8-933a-f2213da6e70b' }
                 }
               )
               .then(response => {
                 if (response.data.resultCode === 0) {
                   props.onUnFollow(props.userId);
                 }
+                props.toggleFollowingProgress(false, props.userId);
               });
           }}
         >
@@ -41,22 +43,24 @@ const UserListItem = props => {
         </button>
       ) : (
         <button
+          disabled={props.followingInProgress.some( id => id === props.userId)}
           onClick={e => {
             e.stopPropagation();
-
+            props.toggleFollowingProgress(true, props.userId);
             axios
               .post(
                 `https://social-network.samuraijs.com/api/1.0/follow/${props.userId}`,
                 {},
                 {
                   withCredentials: true,
-                  headers: {"API-KEY": "1d50145e-9b5b-43e8-933a-f2213da6e70b"}
+                  headers: { 'API-KEY': '1d50145e-9b5b-43e8-933a-f2213da6e70b' }
                 }
               )
               .then(response => {
                 if (response.data.resultCode === 0) {
                   props.onFollow(props.userId);
                 }
+                props.toggleFollowingProgress(false, props.userId);
               });
           }}
         >
