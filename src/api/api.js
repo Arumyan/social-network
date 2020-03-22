@@ -9,6 +9,13 @@ const instance = axios.create({
 export const usersAPI = {
   getUsers() {
     return instance.get('users?count=5').then(response => response.data);
-  }
-}
+  },
 
+  follow(userId) {
+    return instance.post(`follow/${userId}`).then(response => response.data);
+  },
+
+  unfollow(userId) {
+    return instance.delete(`follow/${userId}`).then(response => response.data);
+  }
+};

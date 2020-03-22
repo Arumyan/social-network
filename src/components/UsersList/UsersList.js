@@ -8,8 +8,7 @@ import UserListItem from './UserListItem/UserListItem';
 import {
   getUsersThunkCreator,
   follow,
-  unfollow,
-  toggleFollowingProgress
+  unfollow
 } from '../../redux/reducers/usersReducer';
 
 class UsersList extends Component {
@@ -34,10 +33,9 @@ class UsersList extends Component {
               photo={user.photos.large}
               key={user.id}
               followed={user.followed}
-              onFollow={this.props.follow}
-              onUnFollow={this.props.unfollow}
+              follow={this.props.follow}
+              unfollow={this.props.unfollow}
               onClickUserItem={this.hundlerClickUserItem}
-              toggleFollowingProgress={this.props.toggleFollowingProgress}
               followingInProgress={this.props.followingInProgress}
             />
           );
@@ -60,6 +58,5 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   getUsersThunkCreator,
   follow,
-  unfollow,
-  toggleFollowingProgress
+  unfollow
 })(withRouter(UsersList));
