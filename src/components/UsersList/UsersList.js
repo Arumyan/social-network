@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import UserListItem from './UserListItem/UserListItem';
-import { usersAPI } from '../../api/api';
+import {
+  getUsersThunkCreator,
+  follow,
+  unfollow,
+  toggleFollowingProgress
+} from '../../redux/reducers/usersReducer';
 
 class UsersList extends Component {
   componentDidMount() {
-    if (!this.props.users.length) {
-      usersAPI.getUsers().then(data => {
-        this.props.setUsers(data.items);
-        this.props.toggleIsLoaded();
-      });
-    }
+    this.props.getUsersThunkCreator();
   }
 
   hundlerClickUserItem = userId => {
@@ -57,31 +57,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setUsers: users => {
-      dispatch({ type: 'SET_USERS', users });
-    },
-
-    follow: userId => {
-      dispatch({ type: 'FOLLOW', userId });
-    },
-
-    unfollow: userId => {
-      dispatch({ type: 'UNFOLLOW', userId });
-    },
-
-    toggleIsLoaded: () => {
-      dispatch({ type: 'TOGGLE_IS_LOADED' });
-    },
-
-    toggleFollowingProgress: (isFetching, userId) => {
-      dispatch({ type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId });
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(UsersList));
+export default connect(mapStateToProps, {
+  getUsersThunkCreator,
+  follow,
+  unfollow,
+  toggleFollowingProgress
+})(withRouter(UsersList));
