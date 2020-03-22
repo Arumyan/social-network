@@ -4,6 +4,7 @@ import './App.scss';
 import UsersList from './components/UsersList/UsersList';
 import Profile from './components/Profile/Profile';
 import Login from './components/Login/Login';
+import Nav from './components/Nav/Nav';
 
 import { Switch, Route } from 'react-router-dom';
 
@@ -42,13 +43,7 @@ class App extends Component {
           </div>
         </header>
         <div className='Content'>
-          <nav className='Nav'>
-            <ul>
-              <li>Users</li>
-              <li>Messages</li>
-              <li>Settings</li>
-            </ul>
-          </nav>
+          <Nav/>
           <main className='MainContent'>
             <Switch>
               <Route path='/' exact>
