@@ -1,14 +1,15 @@
 import React from 'react';
 import classes from './Nav.module.scss';
 
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-const Nav = () => {
+const Nav = (props) => {
   return (
     <nav className={classes.Nav}>
       <ul className={classes.NavList}>
         <li>
-          <NavLink to='/myprofile' activeClassName={classes.active} exact>
+          <NavLink to={`/profile/6426`} activeClassName={classes.active} exact>
             My profile
           </NavLink>
         </li>
@@ -37,4 +38,10 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+const mapStateToProps = state => {
+  return {
+    userId: state.authReducer
+  };
+};
+
+export default connect(mapStateToProps)(Nav);

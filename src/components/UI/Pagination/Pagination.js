@@ -18,6 +18,7 @@ const Pagination = (props) => {
           return (
             <span
               className={props.currentPage === p ? classes.active : null}
+              key={p}
               onClick={() => props.onPageChanged(p, props.pageSize)}
             >
               {p}
