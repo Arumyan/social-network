@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classes from './UsersList.module.scss';
 
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 
 import UserListItem from './UserListItem/UserListItem';
 import {
@@ -21,6 +21,11 @@ class UsersList extends Component {
   };
 
   render() {
+
+    if(!this.props.isAuth) {
+      return <Redirect to={"/login"}/>
+    }
+
     const loading = <div>Loading</div>;
 
     const users = (
@@ -51,7 +56,8 @@ const mapStateToProps = state => {
   return {
     users: state.usersReducer.users,
     isLoaded: state.usersReducer.isLoaded,
-    followingInProgress: state.usersReducer.followingInProgress
+    followingInProgress: state.usersReducer.followingInProgress,
+    isAuth: state.authReducer.isAuth
   };
 };
 

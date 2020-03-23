@@ -9,20 +9,11 @@ import Nav from './components/Nav/Nav';
 import { Switch, Route } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import axios from 'axios';
+import { getAuthUserDataThunk } from './redux/reducers/authReducer';
 
 class App extends Component {
   componentDidMount() {
-    axios
-      .get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-        withCredentials: true
-      })
-      .then(response => {
-        if (response.data.resultCode === 0) {
-          const { id, email, login } = response.data.data;
-          this.props.setAuthUserData({ id, email, login });
-        }
-      });
+    this.props.getAuthUserDataThunk();
   }
 
   render() {
@@ -43,7 +34,7 @@ class App extends Component {
           </div>
         </header>
         <div className='Content'>
-          <Nav/>
+          <Nav />
           <main className='MainContent'>
             <Switch>
               <Route path='/' exact>
@@ -70,10 +61,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setAuthUserData: data => dispatch({ type: 'SET_AUTH_USER_DATA', data })
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, { getAuthUserDataThunk })(App);
