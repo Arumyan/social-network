@@ -3,6 +3,7 @@ import classes from './Profile.module.scss';
 
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 import Spinner from '../UI/Spinner/Spinner';
 import { getProfileThunk } from '../../redux/reducers/profileReducer';
@@ -83,7 +84,6 @@ class Profile extends Component {
     );
   }
 }
-const AuthRedirectComponent = withAuthRedirect(Profile);
 
 const mapStateToProps = state => {
   return {
@@ -92,6 +92,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getProfileThunk })(
-  withRouter(AuthRedirectComponent)
-);
+export default compose(
+  connect(mapStateToProps, { getProfileThunk }),
+  withRouter,
+  withAuthRedirect
+)(Profile);
