@@ -3,6 +3,7 @@ import classes from './UsersList.module.scss';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { compose } from 'redux';
 
 import UserListItem from './UserListItem/UserListItem';
 import Spinner from '../UI/Spinner/Spinner';
@@ -64,8 +65,6 @@ class UsersList extends Component {
   }
 }
 
-const AuthRedirectComponent = withAuthRedirect(UsersList);
-
 const mapStateToProps = state => {
   return {
     users: state.usersReducer.users,
@@ -77,9 +76,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {
-  getUsersThunkCreator,
-  onPageChanged,
-  follow,
-  unfollow
-})(withRouter(AuthRedirectComponent));
+export default compose(
+  connect(mapStateToProps, {
+    getUsersThunkCreator,
+    onPageChanged,
+    follow,
+    unfollow
+  }),
+  withRouter,
+  withAuthRedirect
+)(UsersList);
