@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import Spinner from '../UI/Spinner/Spinner';
 import { getProfileThunk } from '../../redux/reducers/profileReducer';
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
 
 class Profile extends Component {
   componentDidMount() {
@@ -16,7 +17,7 @@ class Profile extends Component {
     if (!this.props.isLoading) {
       return <Spinner />;
     }
-    console.log(this.props.profileInfo);
+
     const {
       contacts,
       photos,
@@ -30,7 +31,14 @@ class Profile extends Component {
       <div className={classes.Profile}>
         <div className={classes.ProfileInfo}>
           <div className={classes.ProfileImage}>
-            <img src={photos.large} alt='avatar' />
+            <img
+              src={
+                photos.large
+                  ? photos.large
+                  : 'https://specenergo.ru/sites/default/files/styles/mt_testimonial_image/public/2016-11/testimonial-4.jpg?itok=a7UblV6p'
+              }
+              alt='avatar'
+            />
           </div>
           <div className={classes.ProfileDescr}>
             <h1>{fullName}</h1>
@@ -75,14 +83,15 @@ class Profile extends Component {
     );
   }
 }
+const AuthRedirectComponent = withAuthRedirect(Profile);
 
 const mapStateToProps = state => {
   return {
     profileInfo: state.profileReducer.profileInfo,
-    isLoading: state.profileReducer.isLoading
+    isLoading: state.profileReducer.isLoading,
   };
 };
 
 export default connect(mapStateToProps, { getProfileThunk })(
-  withRouter(Profile)
+  withRouter(AuthRedirectComponent)
 );

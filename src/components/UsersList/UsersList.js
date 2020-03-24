@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import classes from './UsersList.module.scss';
 
 import { connect } from 'react-redux';
-import { withRouter, Redirect } from 'react-router';
+import { withRouter } from 'react-router';
 
 import UserListItem from './UserListItem/UserListItem';
 import Spinner from '../UI/Spinner/Spinner';
 import Pagination from '../UI/Pagination/Pagination';
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
 
 import {
   getUsersThunkCreator,
@@ -25,16 +26,11 @@ class UsersList extends Component {
   };
 
   render() {
-    if (!this.props.isAuth) {
-      return <Redirect to={'/login'} />;
-    }
-
     const loading = (
       <div className={classes.UsersLoading}>
         <Spinner />
       </div>
     );
-
 
     const content = (
       <>
@@ -68,6 +64,8 @@ class UsersList extends Component {
   }
 }
 
+const AuthRedirectComponent = withAuthRedirect(UsersList);
+
 const mapStateToProps = state => {
   return {
     users: state.usersReducer.users,
@@ -75,8 +73,7 @@ const mapStateToProps = state => {
     totalUsersCount: state.usersReducer.totalUsersCount,
     currentPage: state.usersReducer.currentPage,
     isLoaded: state.usersReducer.isLoaded,
-    followingInProgress: state.usersReducer.followingInProgress,
-    isAuth: state.authReducer.isAuth
+    followingInProgress: state.usersReducer.followingInProgress
   };
 };
 
@@ -85,4 +82,4 @@ export default connect(mapStateToProps, {
   onPageChanged,
   follow,
   unfollow
-})(withRouter(UsersList));
+})(withRouter(AuthRedirectComponent));
