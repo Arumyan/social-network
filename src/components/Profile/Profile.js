@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import Spinner from '../UI/Spinner/Spinner';
+import ProfileStatus from './ProfileStatus/ProfileStatus';
 import { getProfileThunk } from '../../redux/reducers/profileReducer';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
 
@@ -43,7 +44,7 @@ class Profile extends Component {
           </div>
           <div className={classes.ProfileDescr}>
             <h1>{fullName}</h1>
-            <div>{aboutMe}</div>
+            <ProfileStatus status={'Здесь будет статус'}/>
             <div>{lookingForAJob}</div>
             <div>
               {lookingForAJobDescription
@@ -88,12 +89,12 @@ class Profile extends Component {
 const mapStateToProps = state => {
   return {
     profileInfo: state.profileReducer.profileInfo,
-    isLoading: state.profileReducer.isLoading,
+    isLoading: state.profileReducer.isLoading
   };
 };
 
 export default compose(
   connect(mapStateToProps, { getProfileThunk }),
-  withRouter,
-  withAuthRedirect
+  withRouter
+  //withAuthRedirect
 )(Profile);
