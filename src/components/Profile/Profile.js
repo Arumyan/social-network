@@ -7,12 +7,20 @@ import { compose } from 'redux';
 
 import Spinner from '../UI/Spinner/Spinner';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
-import { getProfileThunk } from '../../redux/reducers/profileReducer';
-import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import {
+  getProfileThunk,
+  getStatusThunk,
+  updateStatusThunk
+} from '../../redux/reducers/profileReducer';
+
+//import { withAuthRedirect } from '../hoc/withAuthRedirect';
 
 class Profile extends Component {
   componentDidMount() {
-    this.props.getProfileThunk(this.props.match.params.userId);
+    const userId = this.props.match.params.userId;
+    this.props.getProfileThunk(userId);
+
+    this.props.getStatusThunk(userId);
   }
 
   render() {
@@ -24,9 +32,9 @@ class Profile extends Component {
       contacts,
       photos,
       fullName,
-      aboutMe,
-      lookingForAJob,
-      lookingForAJobDescription
+      //aboutMe,
+      //lookingForAJob,
+      //lookingForAJobDescription
     } = this.props.profileInfo;
 
     return (
@@ -44,13 +52,13 @@ class Profile extends Component {
           </div>
           <div className={classes.ProfileDescr}>
             <h1>{fullName}</h1>
-            <ProfileStatus status={'Здесь будет статус'}/>
-            <div>{lookingForAJob}</div>
+            <ProfileStatus status={this.props.status} updateStatus={this.props.updateStatusThunk} />
+            {/* <div>{lookingForAJob}</div>
             <div>
               {lookingForAJobDescription
                 ? 'В поисках работы'
                 : ' Не ищу работу'}
-            </div>
+            </div> */}
           </div>
         </div>
         <div className={classes.ProfileContacts}>
@@ -89,12 +97,17 @@ class Profile extends Component {
 const mapStateToProps = state => {
   return {
     profileInfo: state.profileReducer.profileInfo,
-    isLoading: state.profileReducer.isLoading
+    isLoading: state.profileReducer.isLoading,
+    status: state.profileReducer.status
   };
 };
 
 export default compose(
-  connect(mapStateToProps, { getProfileThunk }),
+  connect(mapStateToProps, {
+    getProfileThunk,
+    getStatusThunk,
+    updateStatusThunk
+  }),
   withRouter
   //withAuthRedirect
 )(Profile);
