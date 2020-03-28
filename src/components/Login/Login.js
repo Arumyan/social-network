@@ -15,6 +15,10 @@ class Login extends Component {
             <label htmlFor="">Password</label>
             <input type="text" placeholder="Password"/>
           </div>
+          <div className={classes.FormItem}>
+            <label htmlFor="checkbox">Remember</label>
+            <input id="checkbox" type="checkbox" />>
+          </div>
 
           <div className={classes.FormItemButton}>
             <button>Login</button>
