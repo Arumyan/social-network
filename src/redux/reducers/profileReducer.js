@@ -2,7 +2,8 @@ import { profileAPI } from '../../api/api';
 
 const initialState = {
   isLoading: false,
-  profileInfo: {}
+  profileInfo: {},
+  status: ''
 };
 
 export default function profileReducer(state = initialState, action) {
@@ -12,6 +13,9 @@ export default function profileReducer(state = initialState, action) {
 
     case 'TOGGLE_IS_LOADING':
       return { ...state, isLoading: action.loading };
+
+    case 'SET_STATUS':
+      return { ...state, status: action.status};
 
     default:
       return state;
@@ -24,6 +28,8 @@ export const toggleIsLoading = loading => ({
   loading
 });
 
+export const setStatus = status => ({ type: 'SET_STATUS', status });
+
 // THUNK
 export const getProfileThunk = userId => {
   return dispatch => {
@@ -31,6 +37,24 @@ export const getProfileThunk = userId => {
     profileAPI.getProfile(userId).then(data => {
       dispatch(setProfile(data));
       dispatch(toggleIsLoading(true));
+    });
+  };
+};
+
+export const getStatusThunk = userId => {
+  return dispatch => {
+    profileAPI.getStatus(userId).then(data => {
+      dispatch(setStatus(data));
+    });
+  };
+};
+
+export const updateStatusThunk = status => {
+  return dispatch => {
+    profileAPI.updateStatus(status).then(data => {
+      if(!data.resultCode) {
+        dispatch(setStatus(status));
+      }
     });
   };
 };
