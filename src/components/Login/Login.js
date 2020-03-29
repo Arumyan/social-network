@@ -1,32 +1,49 @@
-import React, {Component} from 'react'
-import classes from './Login.module.scss'
+import React, { Component } from 'react';
+import classes from './Login.module.scss';
+
+import { reduxForm, Field } from 'redux-form';
+
+const LoginForm = props => {
+  return (
+    <form className={classes.Form} onSubmit={props.handleSubmit}>
+      <div className={classes.FormItem}>
+        <label htmlFor=''>Login</label>
+        <Field name={'login'} component={'input'} placeholder='Login' />
+      </div>
+      <div className={classes.FormItem}>
+        <label htmlFor=''>Password</label>
+        <Field name={'password'} component={'input'} placeholder='Password' />
+      </div>
+      <div className={classes.FormItem}>
+        <label htmlFor='checkbox'>Remember</label>
+        <Field
+          name={'rememberMe'}
+          id='checkbox'
+          type={'checkbox'}
+          component={'input'}
+        />
+      </div>
+
+      <div className={classes.FormItemButton}>
+        <button>Login</button>
+      </div>
+    </form>
+  );
+};
+
+const LoginFormRedux = reduxForm({ form: 'login' })(LoginForm)
 
 class Login extends Component {
-  
-  render() {
-    return (
-      <div className={classes.Login}>
-        <form className={classes.Form}>
-          <div className={classes.FormItem}>
-            <label htmlFor="">Login</label>
-            <input type="text" placeholder="Login"/>
-          </div>
-          <div className={classes.FormItem}>
-            <label htmlFor="">Password</label>
-            <input type="text" placeholder="Password"/>
-          </div>
-          <div className={classes.FormItem}>
-            <label htmlFor="checkbox">Remember</label>
-            <input id="checkbox" type="checkbox" />>
-          </div>
 
-          <div className={classes.FormItemButton}>
-            <button>Login</button>
-          </div>
-        </form>
-      </div>
-    )
+  onSubmit = (formData) => {
+    console.log(formData)
+  }
+
+  render() {
+    return <div className={classes.Login} >
+      <LoginFormRedux onSubmit={this.onSubmit}/>
+    </div>;
   }
 }
 
-export default Login
+export default Login;
