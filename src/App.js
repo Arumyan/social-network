@@ -9,7 +9,11 @@ import Nav from './components/Nav/Nav';
 import { Switch, Route } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { getAuthUserDataThunk } from './redux/reducers/authReducer';
+import {
+  getAuthUserDataThunk,
+  logoutThunk
+} from './redux/reducers/authReducer';
+import { NavLink } from 'react-router-dom';
 
 class App extends Component {
   componentDidMount() {
@@ -17,19 +21,27 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <div className='App'>
         <header className='Header'>
           <div className='Logo'>SocialNetwork</div>
           <div className='User'>
             <span className='UserName'>
-              {this.props.isAuth ? this.props.login : 'Login'}
+              {this.props.isAuth && this.props.login}
             </span>
             <div className='Avatar'>
               <img
                 src='https://specenergo.ru/sites/default/files/styles/mt_testimonial_image/public/2016-11/testimonial-4.jpg?itok=a7UblV6p'
                 alt='Avatar'
               />
+            </div>
+            <div style={{ marginLeft: '20px', cursor: 'pointer' }}>
+              {this.props.isAuth ? (
+                <span onClick={this.props.logoutThunk()}>Logout</span>
+              ) : (
+                <NavLink to={'/login'}>Login</NavLink>
+              )}
             </div>
           </div>
         </header>
@@ -61,4 +73,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getAuthUserDataThunk })(App);
+export default connect(mapStateToProps, { getAuthUserDataThunk, logoutThunk })(
+  App
+);

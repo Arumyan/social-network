@@ -1,38 +1,13 @@
 import React, { Component } from 'react';
 import classes from './Login.module.scss';
 
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
-// validate
-const required = value => {
-  if (value) {
-    console.log('validate(required) ok');
-    return undefined;
-  }
-
-  
-  return 'Field is required';
-};
-
-const max = maxLength => value => {
-  if (value.length > maxLength) return `Max length is ${maxLength}`;
-
-  return 'validate(maxLength) ok';
-};
-
-const maxLength15 = max(15);
-// end validate
-
-const FormInput = ({ input, meta, ...props }) => {
-  return (
-    <div>
-      <input {...input} {...props} />
-      {meta.touched && meta.error && (
-        <div style={{ color: 'red', marginTop: '10px' }}>{meta.error}</div>
-      )}
-    </div>
-  );
-};
+import { loginThunk, logoutThunk } from '../../redux/reducers/authReducer';
+import { FormInput } from '../UI/FormControl/FormControl';
+import { required } from '../../validate/login';
+import { Redirect } from 'react-router-dom';
 
 const LoginForm = props => {
   return (
@@ -40,10 +15,10 @@ const LoginForm = props => {
       <div className={classes.FormItem}>
         <label htmlFor=''>Login</label>
         <Field
-          validate={[required, maxLength15]}
-          name={'login'}
+          validate={[required]}
+          name={'email'}
           component={FormInput}
-          placeholder='Login'
+          placeholder='Email'
         />
       </div>
       <div className={classes.FormItem}>
@@ -71,10 +46,20 @@ const LoginFormRedux = reduxForm({ form: 'login' })(LoginForm);
 
 class Login extends Component {
   onSubmit = formData => {
-    console.log(formData);
+    this.props.loginThunk(
+      formData.email,
+      formData.password,
+      formData.rememberMe
+    );
   };
 
+  
+
   render() {
+    if(this.props.isAuth) {
+      return <Redirect to={'/profile/6426'}/>
+    }
+
     return (
       <div className={classes.Login}>
         <LoginFormRedux onSubmit={this.onSubmit} />
@@ -83,4 +68,10 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    isAuth: state.authReducer.isAuth
+  };
+};
+
+export default connect(mapStateToProps, { loginThunk, logoutThunk })(Login);
