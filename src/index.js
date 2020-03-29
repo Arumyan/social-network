@@ -11,6 +11,8 @@ import thunkMiddleware from 'redux-thunk';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
+window.store = store;
+
 const app = (
   <Provider store={store}>
     <BrowserRouter>
