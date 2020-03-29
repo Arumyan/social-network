@@ -3,12 +3,48 @@ import classes from './Login.module.scss';
 
 import { reduxForm, Field } from 'redux-form';
 
+// validate
+const required = value => {
+  if (value) {
+    console.log('validate(required) ok');
+    return undefined;
+  }
+
+  
+  return 'Field is required';
+};
+
+const max = maxLength => value => {
+  if (value.length > maxLength) return `Max length is ${maxLength}`;
+
+  return 'validate(maxLength) ok';
+};
+
+const maxLength15 = max(15);
+// end validate
+
+const FormInput = ({ input, meta, ...props }) => {
+  return (
+    <div>
+      <input {...input} {...props} />
+      {meta.touched && meta.error && (
+        <div style={{ color: 'red', marginTop: '10px' }}>{meta.error}</div>
+      )}
+    </div>
+  );
+};
+
 const LoginForm = props => {
   return (
     <form className={classes.Form} onSubmit={props.handleSubmit}>
       <div className={classes.FormItem}>
         <label htmlFor=''>Login</label>
-        <Field name={'login'} component={'input'} placeholder='Login' />
+        <Field
+          validate={[required, maxLength15]}
+          name={'login'}
+          component={FormInput}
+          placeholder='Login'
+        />
       </div>
       <div className={classes.FormItem}>
         <label htmlFor=''>Password</label>
@@ -31,18 +67,19 @@ const LoginForm = props => {
   );
 };
 
-const LoginFormRedux = reduxForm({ form: 'login' })(LoginForm)
+const LoginFormRedux = reduxForm({ form: 'login' })(LoginForm);
 
 class Login extends Component {
-
-  onSubmit = (formData) => {
-    console.log(formData)
-  }
+  onSubmit = formData => {
+    console.log(formData);
+  };
 
   render() {
-    return <div className={classes.Login} >
-      <LoginFormRedux onSubmit={this.onSubmit}/>
-    </div>;
+    return (
+      <div className={classes.Login}>
+        <LoginFormRedux onSubmit={this.onSubmit} />
+      </div>
+    );
   }
 }
 
