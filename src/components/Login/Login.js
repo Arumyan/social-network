@@ -54,7 +54,6 @@ class Login extends Component {
   };
 
   
-
   render() {
     if(this.props.isAuth) {
       return <Redirect to={'/profile/6426'}/>
