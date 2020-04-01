@@ -1,4 +1,5 @@
 import { authAPI } from '../../api/api';
+import { stopSubmit } from 'redux-form';
 
 const initialState = {
   id: null,
@@ -13,7 +14,7 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         ...action.data,
-        isAuth: true
+        isAuth: action.isAuth
       };
 
     default:
@@ -36,18 +37,23 @@ export const getAuthUserDataThunk = () => {
         dispatch(setAuthUserData(id, email, login, true));
       }
     });
-  }
-}
+  };
+};
 
 export const loginThunk = (email, password, rememberMe) => {
   return dispatch => {
     authAPI.login(email, password, rememberMe).then(data => {
       if (data.resultCode === 0) {
-        dispatch(getAuthUserDataThunk())
+        dispatch(getAuthUserDataThunk());
+      } else {
+        const message =
+          data.messages.length > 0 ? data.messages[0] : 'Some Error';
+        const action = stopSubmit('login', { _error: message });
+        dispatch(action);
       }
     });
-  }
-}
+  };
+};
 
 export const logoutThunk = () => {
   return dispatch => {
@@ -56,5 +62,5 @@ export const logoutThunk = () => {
         dispatch(setAuthUserData(null, null, null, false));
       }
     });
-  }
-}
+  };
+};

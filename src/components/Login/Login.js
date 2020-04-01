@@ -34,6 +34,7 @@ const LoginForm = props => {
           component={'input'}
         />
       </div>
+      {props.error && <div style={{ color: 'red' }}>{props.error}</div>}
 
       <div className={classes.FormItemButton}>
         <button>Login</button>
@@ -53,10 +54,9 @@ class Login extends Component {
     );
   };
 
-  
   render() {
-    if(this.props.isAuth) {
-      return <Redirect to={'/profile/6426'}/>
+    if (this.props.isAuth) {
+      return <Redirect to={'/profile/6426'} />;
     }
 
     return (

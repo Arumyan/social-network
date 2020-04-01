@@ -40,7 +40,7 @@ const Nav = (props) => {
 
 const mapStateToProps = state => {
   return {
-    userId: state.authReducer
+    userId: state.authReducer.id
   };
 };
 

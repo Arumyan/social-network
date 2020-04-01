@@ -37,11 +37,8 @@ class App extends Component {
               />
             </div>
             <div style={{ marginLeft: '20px', cursor: 'pointer' }}>
-              {this.props.isAuth ? (
-                <span onClick={this.props.logoutThunk()}>Logout</span>
-              ) : (
                 <NavLink to={'/login'}>Login</NavLink>
-              )}
+                <span style={{ marginLeft: '20px'}} onClick={() => this.props.logoutThunk()}>Logout</span>
             </div>
           </div>
         </header>
