@@ -23,7 +23,7 @@ const LoginForm = props => {
       </div>
       <div className={classes.FormItem}>
         <label htmlFor=''>Password</label>
-        <Field name={'password'} component={'input'} placeholder='Password' />
+        <Field name={'password'} component={FormInput} placeholder='Password' />
       </div>
       <div className={classes.FormItem}>
         <label htmlFor='checkbox'>Remember</label>
@@ -55,9 +55,9 @@ class Login extends Component {
   };
 
   render() {
-    if (this.props.isAuth) {
-      return <Redirect to={'/profile/6426'} />;
-    }
+    //if (this.props.isAuth) {
+    //  return <Redirect to={'/profile/6426'} />;
+    //}
 
     return (
       <div className={classes.Login}>

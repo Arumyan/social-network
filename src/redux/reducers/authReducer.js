@@ -14,7 +14,7 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         ...action.data,
-        isAuth: action.isAuth
+        isAuth: action.data.isAuth
       };
 
     default:
@@ -31,7 +31,7 @@ export const setAuthUserData = (userId, email, login, isAuth) => ({
 // THUNK
 export const getAuthUserDataThunk = () => {
   return dispatch => {
-    authAPI.me().then(data => {
+    return authAPI.me().then(data => {
       if (data.resultCode === 0) {
         const { id, email, login } = data.data;
         dispatch(setAuthUserData(id, email, login, true));
