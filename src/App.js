@@ -5,17 +5,17 @@ import UsersList from './components/UsersList/UsersList';
 import Profile from './components/Profile/Profile';
 import Login from './components/Login/Login';
 import Nav from './components/Nav/Nav';
+import Spinner from './components/UI/Spinner/Spinner';
 
 import { withRouter } from 'react-router';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, NavLink } from 'react-router-dom';
+
 import { compose } from 'redux';
-
 import { connect } from 'react-redux';
-import { logoutThunk } from './redux/reducers/authReducer';
 
+import { logoutThunk } from './redux/reducers/authReducer';
 import { initializeThunk } from './redux/reducers/appReducer';
-import { NavLink } from 'react-router-dom';
-import Spinner from './components/UI/Spinner/Spinner';
+import { getIsAuth, getUserLogin } from './redux/reducers/authSelector';
 
 class App extends Component {
   componentDidMount() {
@@ -79,10 +79,18 @@ class App extends Component {
   }
 }
 
+// const mapStateToProps = state => {
+//   return {
+//     isAuth: state.authReducer.isAuth,
+//     login: state.authReducer.login,
+//     initialized: state.appReducer.initialized
+//   };
+// };
+
 const mapStateToProps = state => {
   return {
-    isAuth: state.authReducer.isAuth,
-    login: state.authReducer.login,
+    isAuth: getIsAuth(state),
+    login: getUserLogin(state),
     initialized: state.appReducer.initialized
   };
 };
