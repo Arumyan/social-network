@@ -7,6 +7,7 @@ import { compose } from 'redux';
 
 import Spinner from '../UI/Spinner/Spinner';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
+import ProfileStatusWidthHooks from './ProfileStatus/ProfileStatusWithHooks';
 import {
   getProfileThunk,
   getStatusThunk,
@@ -52,7 +53,8 @@ class Profile extends Component {
           </div>
           <div className={classes.ProfileDescr}>
             <h1>{fullName}</h1>
-            <ProfileStatus status={this.props.status} updateStatus={this.props.updateStatusThunk} />
+            {/* <ProfileStatus status={this.props.status} updateStatus={this.props.updateStatusThunk} /> */}
+            <ProfileStatusWidthHooks status={this.props.status} updateStatus={this.props.updateStatusThunk}/>
             {/* <div>{lookingForAJob}</div>
             <div>
               {lookingForAJobDescription
