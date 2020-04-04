@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './ProfileStatus.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const ProfileStatusWidthHooks = props => {
   //state = {
@@ -10,6 +10,10 @@ const ProfileStatusWidthHooks = props => {
 
   const [eidtMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(props.status);
+
+  useEffect( () => {
+    setStatus(props.status)
+  }, [props.status])
 
   const activateEditMode = () => {
     setEditMode(true);
