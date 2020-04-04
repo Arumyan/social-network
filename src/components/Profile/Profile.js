@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import Spinner from '../UI/Spinner/Spinner';
-import ProfileStatus from './ProfileStatus/ProfileStatus';
+// import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileStatusWidthHooks from './ProfileStatus/ProfileStatusWithHooks';
 import {
   getProfileThunk,

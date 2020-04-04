@@ -7,7 +7,7 @@ import { reduxForm, Field } from 'redux-form';
 import { loginThunk, logoutThunk } from '../../redux/reducers/authReducer';
 import { FormInput } from '../UI/FormControl/FormControl';
 import { required } from '../../validate/login';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 const LoginForm = props => {
   return (

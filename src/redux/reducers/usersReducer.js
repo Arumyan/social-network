@@ -103,6 +103,7 @@ export const onPageChanged = (currentPage, pageSize) => {
   };
 };
 
+
 export const follow = userId => {
   return dispatch => {
     dispatch(toggleFollowingProgress(true, userId));
