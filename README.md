@@ -6,6 +6,6 @@ API: [social-network.samuraijs.com](https://social-network.samuraijs.com/docs)
 ## Github Pages
 View the project at the link: [arumyan.github.io/social-network](https://arumyan.github.io/social-network)
 
-**Test account**
+**Test Account**  
 *Email: free@samuraijs.com*  
 *Password: free*  
