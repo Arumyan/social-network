@@ -19,7 +19,7 @@ const app = (
       <App />
     </BrowserRouter> */}
 
-    <HashRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <App />
     </HashRouter>
   </Provider>
