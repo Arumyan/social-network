@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import './App.scss';
 
 import UsersList from './components/UsersList/UsersList';
-import Profile from './components/Profile/Profile';
+
 import Login from './components/Login/Login';
 import Nav from './components/Nav/Nav';
 import Spinner from './components/UI/Spinner/Spinner';
@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { logoutThunk } from './redux/reducers/authReducer';
 import { initializeThunk } from './redux/reducers/appReducer';
 import { getIsAuth, getUserLogin } from './redux/reducers/authSelector';
-
+const Profile = React.lazy(() => import('./components/Profile/Profile'));
 class App extends Component {
   componentDidMount() {
     this.props.initializeThunk();
@@ -66,7 +66,7 @@ class App extends Component {
                 <UsersList />
               </Route>
               <Route path='/profile/:userId'>
-                <Profile />
+                <Suspense fallback={ <div><Spinner /></div> }><Profile /></Suspense>  
               </Route>
               <Route path='/Login' exact>
                 <Login />
