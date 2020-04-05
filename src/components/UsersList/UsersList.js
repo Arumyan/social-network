@@ -55,6 +55,7 @@ class UsersList extends Component {
         <Pagination
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
+          portionSize={this.props.portionSize}
           currentPage={this.props.currentPage}
           onPageChanged={this.props.onPageChanged}
         />
@@ -69,6 +70,7 @@ const mapStateToProps = state => {
   return {
     users: state.usersReducer.users,
     pageSize: state.usersReducer.pageSize,
+    portionSize: state.usersReducer.portionSize,
     totalUsersCount: state.usersReducer.totalUsersCount,
     currentPage: state.usersReducer.currentPage,
     isLoaded: state.usersReducer.isLoaded,

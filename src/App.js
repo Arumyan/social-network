@@ -79,14 +79,6 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     isAuth: state.authReducer.isAuth,
-//     login: state.authReducer.login,
-//     initialized: state.appReducer.initialized
-//   };
-// };
-
 const mapStateToProps = state => {
   return {
     isAuth: getIsAuth(state),
