@@ -1,33 +1,9 @@
 import { profileAPI } from '../../api/api';
+import { ProfileInfoType } from '../../types/types';
 
 const SET_PROFILE = 'SET_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const TOGGLE_IS_LOADING = 'TOGGLE_IS_LOADING';
-
-type ContactsType = {
-  github: string;
-  vk: string;
-  facebook: string;
-  instagram: string;
-  twitter: string;
-  website: string;
-  youtube: string;
-  mainLink: string;
-};
-
-type PhotosType = {
-  small: string | null;
-  large: string | null;
-};
-
-type ProfileInfoType = {
-  userId: number;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-  contacts: ContactsType;
-  photos: PhotosType;
-};
 
 const initialState = {
   isLoading: false,
