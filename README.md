@@ -1,4 +1,4 @@
-# Social Network
+# Social Network (in progress)
 ## Description
 Social network project using React + Redux  
 API: [social-network.samuraijs.com](https://social-network.samuraijs.com/docs)
