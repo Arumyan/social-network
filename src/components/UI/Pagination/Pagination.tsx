@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import classes from './Pagination.module.scss';
 
-const Pagination = (props) => {
+type PropsType = {
+  totalUsersCount: number;
+  pageSize: number;
+  currentPage: number;
+  onPageChanged: (p:number, pageSize: number) => void;
+  portionSize: number;
+};
+
+const Pagination: React.FC<PropsType> = (props) => {
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
-  const pages = [];
+  const pages: Array<number> = [];
 
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
@@ -18,7 +26,14 @@ const Pagination = (props) => {
   return (
     <div className={classes.Pagination}>
       {portionNumber > 1 && (
-        <button className={classes.PaginationControl} onClick={ () => {setPortionNumber(portionNumber - 1)}}>Prev</button>
+        <button
+          className={classes.PaginationControl}
+          onClick={() => {
+            setPortionNumber(portionNumber - 1);
+          }}
+        >
+          Prev
+        </button>
       )}
 
       <div className={classes.PaginationItems}>
@@ -27,7 +42,7 @@ const Pagination = (props) => {
           .map((p) => {
             return (
               <span
-                className={props.currentPage === p ? classes.active : null}
+                className={props.currentPage === p ? classes.active : ''}
                 key={p}
                 onClick={() => props.onPageChanged(p, props.pageSize)}
               >
@@ -38,7 +53,14 @@ const Pagination = (props) => {
       </div>
 
       {portionCount > portionNumber && (
-        <button className={classes.PaginationControl} onClick={ () => {setPortionNumber(portionNumber + 1)}}>Next</button>
+        <button
+          className={classes.PaginationControl}
+          onClick={() => {
+            setPortionNumber(portionNumber + 1);
+          }}
+        >
+          Next
+        </button>
       )}
     </div>
   );
