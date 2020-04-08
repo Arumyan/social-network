@@ -39,6 +39,24 @@
       }
     }
 
+    .FormItemCheckbox {
+      display: flex;
+      margin: 25px 0 0;
+      width: auto;
+      
+      label {
+        font-size: 18px;
+        color: #fff;
+        display: block;
+        margin-bottom: 5px;
+        cursor: pointer;
+      }
+      
+      input {
+        cursor: pointer;
+      }
+    }
+
     .FormItemButton {
       margin: 50px 0 0;
       text-align: center;

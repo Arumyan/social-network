@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
 import { loginThunk, logoutThunk } from '../../redux/reducers/authReducer';
-import { FormInput } from '../UI/FormControl/FormControl';
+import { FormInput, FormCheckbox } from '../UI/FormControl/FormControl';
 import { required } from '../../validate/login';
 // import { Redirect } from 'react-router-dom';
 
@@ -25,14 +25,14 @@ const LoginForm = props => {
         <label htmlFor=''>Password</label>
         <Field name={'password'} component={FormInput} placeholder='Password' />
       </div>
-      <div className={classes.FormItem}>
-        <label htmlFor='checkbox'>Remember</label>
+      <div className={classes.FormItemCheckbox}>
         <Field
           name={'rememberMe'}
           id='checkbox'
           type={'checkbox'}
-          component={'input'}
+          component={FormCheckbox}
         />
+        <label htmlFor='checkbox'>Remember</label>
       </div>
       {props.error && <div style={{ color: 'red' }}>{props.error}</div>}
 
