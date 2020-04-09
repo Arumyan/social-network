@@ -12,6 +12,11 @@ import { required } from '../../validate/login';
 const LoginForm = props => {
   return (
     <form className={classes.Form} onSubmit={props.handleSubmit}>
+      <div style={{fontSize: '20px', color: '#fff'}}>
+        <div style={{fontWeight: 'bold'}}>Test Account:</div>
+        <div>Email: free@samuraijs.com</div>
+        <div>Password: free</div>
+      </div>
       <div className={classes.FormItem}>
         <label htmlFor=''>Login</label>
         <Field

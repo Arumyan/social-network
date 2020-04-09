@@ -9,7 +9,7 @@ const Nav = (props) => {
     <nav className={classes.Nav}>
       <ul className={classes.NavList}>
         <li>
-          <NavLink to={`/profile/6426`} activeClassName={classes.active} exact>
+          <NavLink to={`/profile/${props.userId}`} activeClassName={classes.active} exact>
             My profile
           </NavLink>
         </li>
@@ -40,7 +40,7 @@ const Nav = (props) => {
 
 const mapStateToProps = state => {
   return {
-    userId: state.authReducer.id
+    userId: state.authReducer.userId
   };
 };
 
