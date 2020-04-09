@@ -10,7 +10,7 @@ import Nav from './components/Nav/Nav';
 import Spinner from './components/UI/Spinner/Spinner';
 
 import { withRouter } from 'react-router';
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { Switch, Route, NavLink } from 'react-router-dom';
 
 import { compose } from 'redux';
 import { connect } from 'react-redux';

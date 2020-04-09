@@ -3,10 +3,6 @@ import classes from './ProfileStatus.module.scss';
 import { useState, useEffect } from 'react';
 
 const ProfileStatusWidthHooks = props => {
-  //state = {
-  //  editMode: false,
-  //  status: this.props.status
-  //};
 
   const [eidtMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(props.status);
@@ -32,8 +28,8 @@ const ProfileStatusWidthHooks = props => {
     <div className={classes.ProfileStatus}>
       {!eidtMode && (
         <div>
-          <span onDoubleClick={activateEditMode}>
-            {props.status || 'Установить статус'}
+          <span onDoubleClick={props.isOwner ? activateEditMode: null} >
+            {props.status || 'Статус не установлен'}
           </span>
         </div>
       )}

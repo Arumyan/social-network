@@ -17,11 +17,11 @@ import {
 //import { withAuthRedirect } from '../hoc/withAuthRedirect';
 
 class Profile extends Component {
-  componentDidMount() {
-    const userId = this.props.match.params.userId;
-    this.props.getProfileThunk(userId);
+  userId = this.props.match.params.userId;
 
-    this.props.getStatusThunk(userId);
+  componentDidMount() {
+    this.props.getProfileThunk(this.userId);
+    this.props.getStatusThunk(this.userId);
   }
 
   render() {
@@ -30,6 +30,7 @@ class Profile extends Component {
     }
 
     const {
+      userId,
       contacts,
       photos,
       fullName,
@@ -37,6 +38,8 @@ class Profile extends Component {
       //lookingForAJob,
       //lookingForAJobDescription
     } = this.props.profileInfo;
+
+    const isOwner = this.props.ownerUserId === userId;
 
     return (
       <div className={classes.Profile}>
@@ -54,13 +57,7 @@ class Profile extends Component {
           <div className={classes.ProfileDescr}>
             <h1>{fullName}</h1>
             {/* <ProfileStatus status={this.props.status} updateStatus={this.props.updateStatusThunk} /> */}
-            <ProfileStatusWidthHooks status={this.props.status} updateStatus={this.props.updateStatusThunk}/>
-            {/* <div>{lookingForAJob}</div>
-            <div>
-              {lookingForAJobDescription
-                ? 'В поисках работы'
-                : ' Не ищу работу'}
-            </div> */}
+            <ProfileStatusWidthHooks status={this.props.status} isOwner={isOwner} updateStatus={this.props.updateStatusThunk}/>
           </div>
         </div>
         <div className={classes.ProfileContacts}>
@@ -98,6 +95,7 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
+    ownerUserId: state.authReducer.userId,
     profileInfo: state.profileReducer.profileInfo,
     isLoading: state.profileReducer.isLoading,
     status: state.profileReducer.status
