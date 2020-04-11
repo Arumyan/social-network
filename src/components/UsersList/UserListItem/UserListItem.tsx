@@ -3,9 +3,9 @@ import classes from './UserListItem.module.scss';
 
 type PropsType = {
   userId: number
-  photo: string
+  photo: string | null
   name: string
-  followed: boolean
+  followed: boolean | undefined
   follow: (userId:number) => void
   unfollow: (userId:number) => void
   followingInProgress: Array<number>

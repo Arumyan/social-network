@@ -7,10 +7,14 @@ import appReducer from './reducers/appReducer';
 
 import {reducer as formReducer} from 'redux-form';
 
-export default combineReducers({
+export const rootReducer = combineReducers({
   appReducer,
   authReducer,
   usersReducer,
   profileReducer,
   form: formReducer,
 });
+
+type RootReducerType = typeof rootReducer;
+
+export type AppStateType = ReturnType<RootReducerType>

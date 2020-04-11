@@ -17,12 +17,38 @@ import {
   unfollow
 } from '../../redux/reducers/usersReducer';
 
-class UsersList extends Component {
+import { UserType } from '../../types/types';
+import { AppStateType } from '../../redux/rootReducer';
+
+type MapStatePropsType = {
+  totalUsersCount: number;
+  pageSize: number;
+  currentPage: number;
+  portionSize: number;
+  users: Array<UserType>;
+  isLoaded: boolean;
+  followingInProgress: Array<number>;
+};
+
+type MapDispatchPropsType = {
+  getUsersThunkCreator: () => void
+  onPageChanged: (currentPage: number, pageSize: number) => void;
+  follow: (userId:number) => void;
+  unfollow: (userId:number) => void;
+};
+
+type OwnPropsType = {
+  history: any
+};
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+
+class UsersList extends Component<PropsType> {
   componentDidMount() {
     this.props.getUsersThunkCreator();
   }
 
-  hundlerClickUserItem = userId => {
+  hundlerClickUserItem = (userId: number) => {
     this.props.history.push(`/profile/${userId}`);
   };
 
@@ -66,7 +92,7 @@ class UsersList extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppStateType) : MapStatePropsType => {
   return {
     users: state.usersReducer.users,
     pageSize: state.usersReducer.pageSize,
@@ -79,7 +105,7 @@ const mapStateToProps = state => {
 };
 
 export default compose(
-  connect(mapStateToProps, {
+  connect<MapStatePropsType, MapDispatchPropsType, null, AppStateType>(mapStateToProps, {
     getUsersThunkCreator,
     onPageChanged,
     follow,
