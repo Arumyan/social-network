@@ -16,6 +16,8 @@ import {
 
 //import { withAuthRedirect } from '../hoc/withAuthRedirect';
 
+const defaultPhoto =
+  'https://specenergo.ru/sites/default/files/styles/mt_testimonial_image/public/2016-11/testimonial-4.jpg?itok=a7UblV6p';
 class Profile extends Component {
   userId = this.props.match.params.userId;
 
@@ -33,7 +35,7 @@ class Profile extends Component {
       userId,
       contacts,
       photos,
-      fullName,
+      fullName
       //aboutMe,
       //lookingForAJob,
       //lookingForAJobDescription
@@ -46,18 +48,18 @@ class Profile extends Component {
         <div className={classes.ProfileInfo}>
           <div className={classes.ProfileImage}>
             <img
-              src={
-                photos.large
-                  ? photos.large
-                  : 'https://specenergo.ru/sites/default/files/styles/mt_testimonial_image/public/2016-11/testimonial-4.jpg?itok=a7UblV6p'
-              }
+              src={photos.large ? photos.large : defaultPhoto}
               alt='avatar'
             />
           </div>
           <div className={classes.ProfileDescr}>
             <h1>{fullName}</h1>
             {/* <ProfileStatus status={this.props.status} updateStatus={this.props.updateStatusThunk} /> */}
-            <ProfileStatusWidthHooks status={this.props.status} isOwner={isOwner} updateStatus={this.props.updateStatusThunk}/>
+            <ProfileStatusWidthHooks
+              status={this.props.status}
+              isOwner={isOwner}
+              updateStatus={this.props.updateStatusThunk}
+            />
           </div>
         </div>
         <div className={classes.ProfileContacts}>

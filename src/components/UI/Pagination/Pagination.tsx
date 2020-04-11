@@ -11,7 +11,6 @@ type PropsType = {
 
 const Pagination: React.FC<PropsType> = (props) => {
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-
   const pages: Array<number> = [];
 
   for (let i = 1; i <= pagesCount; i++) {
