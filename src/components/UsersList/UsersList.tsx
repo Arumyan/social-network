@@ -54,9 +54,7 @@ class UsersList extends Component<PropsType> {
 
   render() {
     const loading = (
-      <div className={classes.UsersLoading}>
         <Spinner />
-      </div>
     );
 
     const content = (

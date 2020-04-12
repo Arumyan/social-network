@@ -54,3 +54,17 @@
     }
   }
 }
+
+.AppInitialize {
+  width: 100%;
+  height: 100vh;
+  background-color:#29497F;
+  text-align: center;
+
+  .AppInitializeText{
+    color: #fff;
+    font-size: 25px;
+    position: relative;
+    left: 5px;
+  }
+}

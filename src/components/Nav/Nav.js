@@ -4,14 +4,29 @@ import classes from './Nav.module.scss';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-const Nav = (props) => {
+const Nav = props => {
   return (
     <nav className={classes.Nav}>
       <ul className={classes.NavList}>
         <li>
-          <NavLink to={`/profile/${props.userId}`} activeClassName={classes.active} exact>
-            My profile
-          </NavLink>
+          {props.isAuth ? (
+            <NavLink
+              to={`/profile/${props.userId}`}
+              activeClassName={classes.active}
+              exact
+            >
+              My profile
+            </NavLink>
+          ) :
+          (
+            <NavLink
+              to='/login'
+              activeClassName={classes.active}
+              exact
+            >
+              My profile
+            </NavLink>
+          )}
         </li>
         <li>
           <NavLink to='/' activeClassName={classes.active} exact>
@@ -40,7 +55,8 @@ const Nav = (props) => {
 
 const mapStateToProps = state => {
   return {
-    userId: state.authReducer.userId
+    userId: state.authReducer.userId,
+    isAuth: state.authReducer.isAuth
   };
 };
 

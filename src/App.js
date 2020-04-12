@@ -27,15 +27,22 @@ class App extends Component {
     this.props.initializeThunk();
   }
 
+  logout = () => {
+    this.props.logoutThunk();
+    this.props.history.push('/login');
+  };
+
   render() {
+
+    const initializeView = (
+      <div className="AppInitialize">
+        <Spinner />
+        <span className="AppInitializeText">Loading...</span>
+      </div>
+    )
+    
     if (!this.props.initialized) {
-      return (
-        <div
-          style={{ backgroundColor: 'green', width: '100%', height: '100%' }}
-        >
-          <Spinner />
-        </div>
-      );
+      return initializeView
     }
 
     return (
@@ -57,7 +64,7 @@ class App extends Component {
                 </div>
                 <span
                   style={{ marginLeft: '20px', cursor: 'pointer' }}
-                  onClick={() => this.props.logoutThunk()}
+                  onClick={this.logout}
                 >
                   Logout
                 </span>
@@ -72,6 +79,7 @@ class App extends Component {
               <Route path='/' exact>
                 <UsersList />
               </Route>
+
               <Route path='/profile/:userId'>
                 <Suspense
                   fallback={
@@ -85,6 +93,9 @@ class App extends Component {
               </Route>
               <Route path='/Login' exact>
                 <Login />
+              </Route>
+              <Route path='/social-network' exact>
+                <UsersList />
               </Route>
               <Route path='/messages' exact>
                 <Messages />
@@ -103,11 +114,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     isAuth: getIsAuth(state),
     login: getUserLogin(state),
-    initialized: state.appReducer.initialized,
+    initialized: state.appReducer.initialized
   };
 };
 
@@ -115,6 +126,6 @@ export default compose(
   withRouter,
   connect(mapStateToProps, {
     logoutThunk,
-    initializeThunk,
+    initializeThunk
   })
 )(App);

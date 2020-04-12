@@ -3,7 +3,7 @@ import classes from './Login.module.scss';
 
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-
+import {Redirect} from 'react-router'
 import { loginThunk, logoutThunk } from '../../redux/reducers/authReducer';
 import { FormInput, FormCheckbox } from '../UI/FormControl/FormControl';
 import { required } from '../../validate/login';
@@ -60,9 +60,9 @@ class Login extends Component {
   };
 
   render() {
-    //if (this.props.isAuth) {
-    //  return <Redirect to={'/profile/6426'} />;
-    //}
+    if (this.props.isAuth) {
+      return <Redirect to={'/'} />;
+    }
 
     return (
       <div className={classes.Login}>
