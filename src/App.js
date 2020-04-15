@@ -6,6 +6,7 @@ import Messages from './components/Messages/Messages';
 import News from './components/News/News';
 import Settings from './components/Settings/Settings';
 import Login from './components/Login/Login';
+import Page404 from './components/Page404/Page404';
 import Nav from './components/Nav/Nav';
 import Spinner from './components/UI/Spinner/Spinner';
 
@@ -105,6 +106,9 @@ class App extends Component {
               </Route>
               <Route path='/settings' exact>
                 <Settings />
+              </Route>
+              <Route>
+                <Page404/>
               </Route>
             </Switch>
           </main>
